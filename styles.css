@@ -1,54 +1,53 @@
 /* CSS for å gjøre nettsiden finere og mer stilfull */
+/* Sett bakgrunnsfarge og font for hele siden */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0; /* Lys bakgrunn */
-  color: #333; /* Mørk tekst for kontrast */
+  background-color: #f4f4f9;
+  font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full høyde på skjermen */
+  min-height: 100vh;
 }
 
-.container {
-  background-color: #ffffff; /* Hvit bakgrunn for innholdet */
+/* Container for å holde alt innhold sentrert på skjermen */
+#result-container {
+  background-color: #ffffff;
   padding: 20px;
-  border-radius: 8px; /* Runde kanter */
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1); /* Lett skygge */
+  border-radius: 10px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   width: 80%;
-  max-width: 600px; /* Maks bredde for å ikke bli for stor */
-}
-
-h1 {
+  max-width: 800px;
   text-align: center;
-  color: #4CAF50; /* Grønn farge på overskriften */
 }
 
-p {
-  font-size: 16px;
-  line-height: 1.6;
-  margin: 10px 0;
-}
-
-button {
-  background-color: #4CAF50; /* Grønn knapp */
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  font-size: 16px;
-  border-radius: 4px; /* Runde hjørner på knappen */
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #45a049; /* Litt mørkere grønn ved hover */
-}
-
-#additionalResult {
-  margin-top: 20px;
-  font-weight: bold;
+/* Stil for overskriften */
+h1 {
   color: #4CAF50;
-  font-size: 18px;
+  font-size: 28px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
 }
+
+/* Generell stil for p-elementene som viser resultatene */
+p {
+  font-size: 18px;
+  color: #333333;
+  margin: 10px 0;
+  line-height: 1.6;
+  font-weight: 500;
+}
+
+/* Vis resultatene i en finere boks for en renere layout */
+#additionalResult {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+  font-size: 16px;
+  color: #555;
+  white-space: pre-wrap; /* Beholder linjeskift i tekst */
+}
+

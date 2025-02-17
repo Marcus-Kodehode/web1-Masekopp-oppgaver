@@ -225,12 +225,13 @@ console.log(averageDifference);  // Skriv ut forskjellen i gjennomsnittsverdien
 
 /* BONUS Oppgave 7 
 
-
 Gjør noe tilsvarende oppgave 6, men som viser noe som ikke har blitt vist enda med odds og evens.
 
-f.eks median, størst verdi, minst verdi, hvor mange verdier er over/under en viss verdi, er noen av verdiene enn viss verdi, er noen av verdiene fra odds og evens like.
-
+f.eks median, størst verdi, minst verdi, hvor mange verdier er over/under en viss verdi, er noen av verdiene en viss verdi, er noen av verdiene fra odds og evens like.
 */
+
+// Funksjon for å telle hvor mange tall som er større enn en viss verdi
+const countGreaterThan = (arr, value) => arr.filter(num => num > value).length;
 
 // Funksjon for å finne den største verdien i et array
 const largestValue = (arr) => Math.max(...arr);
@@ -250,6 +251,10 @@ const calculateMedian = (arr) => {
   }
 };
 
+// Funksjon for å sjekke om noen verdier i odds og evens er like
+const areValuesEqual = (odds, evens) => odds.some(val => evens.includes(val));
+
+// Beregn størst, minst og median for oddetallene og partallene
 const largestOdd = largestValue(odds);
 const largestEven = largestValue(evens);
 
@@ -259,11 +264,14 @@ const smallestEven = smallestValue(evens);
 const medianOdd = calculateMedian(odds);
 const medianEven = calculateMedian(evens);
 
+// Antall tall større enn 5
 const greaterThanFiveOdds = countGreaterThan(odds, 5);
 const greaterThanFiveEvens = countGreaterThan(evens, 5);
 
-const areValuesEqual = odds.some(val => evens.includes(val));
+// Sjekk om noen verdier er like mellom odd og even
+const areValuesEqualInBoth = areValuesEqual(odds, evens);
 
+// Template literal som viser resultatene
 let additionalResult = `
   The largest odd value is ${largestOdd}.
   The largest even value is ${largestEven}.
@@ -273,13 +281,14 @@ let additionalResult = `
   The median of even numbers is ${medianEven}.
   There are ${greaterThanFiveOdds} odd numbers greater than 5.
   There are ${greaterThanFiveEvens} even numbers greater than 5.
-  Are there any common values between odds and evens? ${areValuesEqual ? "Yes" : "No"}.
+  Are there any common values between odds and evens? ${areValuesEqualInBoth ? "Yes" : "No"}.
 `;
 
 console.log(additionalResult);  // Skriv ut resultatene
 
 // Vis på nettsiden (dersom du bruker HTML)
 document.getElementById("additionalResult").textContent = additionalResult;
+
 
 
 
