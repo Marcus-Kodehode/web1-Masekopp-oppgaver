@@ -1,6 +1,6 @@
 //* I denne oppgaven vil det være noe kode som er definert i forkant, ikke fjern noe av denne, men dere skal noen steder fylle dem ut videre slik at koden fungerer.
 
-/* Oppgave 1:  
+/* Oppgave 1:
 
 Fiks loopen for randomArray slik at man får 100 tall pushet inn i randomArray med tall mellom 1 og 1000 (sjekkes via konsoll loggen under)
 Tips: For å teste at loopen tar med 1 og 1000, prøv ut først med et lavere maks tall (f.eks 5)
@@ -13,6 +13,7 @@ for (let i = 0; i < 100; i++) {
 }
 
 console.log(randomArray); // Skriv ut arrayet for å sjekke resultatet
+
 
 /* Oppgave 2
 
@@ -40,16 +41,14 @@ const { odds, evens } = filterArray(randomArray);  // Vi antar at randomArray er
 console.log("Oddetall:", odds);  // Skriv ut oddetallene i konsollen
 console.log("Partall:", evens); // Skriv ut partallene i konsollen
 
-// legg til noe mer her for å finne alle tall som er oddetall (PSEUDO KODE: MODULO DELT PÅ TO ER STRICT LIK NULL);
-
 
 /* Oppgave 3
 
-fiks sumOfOdds og sumOfEvens ved å bruke .reduce metodene. Les her for å se hvordan syntaxen er:
+Fiks sumOfOdds og sumOfEvens ved å bruke .reduce metodene. Les her for å se hvordan syntaxen er:
 
 https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/reduce
 
-eksmepel: odds.reduce(riktig syntax)
+eksemepel: odds.reduce(riktig syntax)
 
 tips: accumulator kan forkortes til acc, currentValue kan forkortes til curr
 tips2: syntaxen ligner noe på det som blir gjort i oppgave 2, men det er 2 parametere istedet + et tall.
@@ -89,7 +88,22 @@ console.log("Lengden av oddetall arrayet:", odds.length);  // Antall oddetall
 console.log("Lengden av partall arrayet:", evens.length); // Antall partall
 
 
+/* Oppgave 4 
 
+Under skal du lage en if else logikk som skal endre result og difference til en ny verdi. Litt av logikken er med allerede som sjekker om sumOfOdds er større enn sumOfEvens. Bruk denne tankegangen videre for å lage tilsvarende logikk hvis sumOfOdds er mindre enn sumOfEvens:
+
+    - hvordan skal du skrive difference i dette tilfelle?
+    - Skriv en string som passer til dette tilfelle
+
+Lag i tillegg en logikk som sjekker hvis verken den første eller andre contitionalen ikke stemmer. Logisk sett betyr det at den sjekker om sumOfEvens og sumOfOdds er like, men i realiteten kjøres denne koden bare fordi de to andre conditionalene ikke stemmer:
+
+    - hvordan skal du skrive difference i dette tilfelle?
+    - Skriv en string som passer til dette tilfelle
+
+*/
+
+// Conditional Logic
+// Oppgave 4 - Conditional Logic (der vi allerede har sumOfOdds og sumOfEvens)
 /* Oppgave 4 
 
 Under skal du lage en if else logikk som skal endre result og difference til en ny verdi. Litt av logikken er med allerede som sjekker om sumOfOdds er større enn sumOfEvens. Bruk denne tankegangen videre for å lage tilsvarende logikk hvis sumOfOdds er mindre enn sumOfEvens:
@@ -107,25 +121,28 @@ Lag i tillegg en logikk som sjekker hvis verken den første eller andre contitio
 // Conditional Logic
 let result = "";
 let difference = 0;
+let valueDifference = 0;  // Definerer valueDifference
 
-// Sjekker om sumOfOdds er større enn sumOfEvens
 if (sumOfOdds > sumOfEvens) {
-  difference = sumOfOdds - sumOfEvens;  // Beregn forskjellen
-  result = "Sum of Odds is greater than Sum of Evens.";  // Beskjed om at oddetallene er større
-} 
-// Sjekker om sumOfOdds er mindre enn sumOfEvens
-else if (sumOfOdds < sumOfEvens) {
-  difference = sumOfEvens - sumOfOdds;  // Beregn forskjellen
-  result = "Sum of Evens is greater than Sum of Odds.";  // Beskjed om at partallene er større
-} 
-// Hvis sumOfOdds er lik sumOfEvens
-else {
-  difference = 0;  // Forskjellen er 0 hvis de er like
-  result = "Sum of Odds and Sum of Evens are equal.";  // Beskjed om at de er like
+  difference = sumOfOdds - sumOfEvens;
+  valueDifference = difference;  // Setter valueDifference til forskjellen
+  result = "Sum of Odds is greater than Sum of Evens.";
+} else if (sumOfOdds < sumOfEvens) {
+  difference = sumOfEvens - sumOfOdds;
+  valueDifference = difference;  // Setter valueDifference til forskjellen
+  result = "Sum of Evens is greater than Sum of Odds.";
+} else {
+  difference = 0;
+  valueDifference = difference;  // Hvis summene er like, setter vi valueDifference til 0
+  result = "Sum of Odds and Sum of Evens are equal.";
 }
 
-console.log(result);          // Skriv ut resultatet
-console.log("Difference:", difference);  // Skriv ut forskjellen
+console.log("Difference:", difference);  // Logg forskjellen i konsollen
+console.log("valueDifference:", valueDifference);  // Logg valueDifference i konsollen
+
+// Vis på nettsiden
+document.getElementById("valueDifference").textContent = `Value Difference: ${valueDifference}`;  // Oppdater nettsiden med valueDifference
+
 
 
 /* Oppgave 4.1
@@ -233,13 +250,6 @@ const calculateMedian = (arr) => {
   }
 };
 
-// Funksjon for å telle hvor mange tall som er større enn en viss verdi
-const countGreaterThan = (arr, value) => arr.filter(num => num > value).length;
-
-// Funksjon for å sjekke om noen verdier i odds og evens er like
-const areValuesEqual = (odds, evens) => odds.some(val => evens.includes(val));
-
-// Beregn størst, minst og median for oddetallene og partallene
 const largestOdd = largestValue(odds);
 const largestEven = largestValue(evens);
 
@@ -249,14 +259,11 @@ const smallestEven = smallestValue(evens);
 const medianOdd = calculateMedian(odds);
 const medianEven = calculateMedian(evens);
 
-// Antall tall større enn 5
 const greaterThanFiveOdds = countGreaterThan(odds, 5);
 const greaterThanFiveEvens = countGreaterThan(evens, 5);
 
-// Sjekk om noen verdier er like mellom odd og even
-const areValuesEqualInBoth = areValuesEqual(odds, evens);
+const areValuesEqual = odds.some(val => evens.includes(val));
 
-// Template literal som viser resultatene
 let additionalResult = `
   The largest odd value is ${largestOdd}.
   The largest even value is ${largestEven}.
@@ -266,13 +273,15 @@ let additionalResult = `
   The median of even numbers is ${medianEven}.
   There are ${greaterThanFiveOdds} odd numbers greater than 5.
   There are ${greaterThanFiveEvens} even numbers greater than 5.
-  Are there any common values between odds and evens? ${areValuesEqualInBoth ? "Yes" : "No"}.
+  Are there any common values between odds and evens? ${areValuesEqual ? "Yes" : "No"}.
 `;
 
 console.log(additionalResult);  // Skriv ut resultatene
 
 // Vis på nettsiden (dersom du bruker HTML)
 document.getElementById("additionalResult").textContent = additionalResult;
+
+
 
 
 //! Koden under skal ikke røres. Den gjør at man får ut svaret på nettsiden:
