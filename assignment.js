@@ -7,30 +7,40 @@ Tips: For å teste at loopen tar med 1 og 1000, prøv ut først med et lavere ma
 */
 const randomArray = [];
 
-
-//! fiks denne:
-for (let i = 0; i < 1; i++) {
-  randomArray.push(Math.floor(Math.random() * 1));
+// Fiks denne loopen for å generere 100 tilfeldige tall mellom 1 og 1000
+for (let i = 0; i < 100; i++) {
+  randomArray.push(Math.floor(Math.random() * 1000) + 1); // Generer tall mellom 1 og 1000
 }
 
-console.log(randomArray); // expected result: 1-1000
-
+console.log(randomArray); // Skriv ut arrayet for å sjekke resultatet
 
 /* Oppgave 2
 
 Under er en funksjon filterArray som bruker .filter metoden på odds og evens const'ene. Du skal fikse getOdds og getEvens arrow funksjonene for å hente ut de riktige dataene til de forskjellige const'ene.  
 */
-function filterArray(arr) {
-  const odds = arr.filter(getOdds);
-  const evens = arr.filter(getEvens);
 
-// returnerer et object som gjør det lettere å referere til const'ene fra funksjonen senere:
+// Funksjon som filtrerer ut oddetall
+const getOdds = (num) => num % 2 !== 0;  // Hvis tallet er ikke delelig med 2 (altså oddetall)
+
+// Funksjon som filtrerer ut partall
+const getEvens = (num) => num % 2 === 0; // Hvis tallet er delelig med 2 (altså partall)
+
+// Filter funksjon som filtrerer ut oddetall og partall
+function filterArray(arr) {
+  const odds = arr.filter(getOdds);   // Filtrer ut oddetall
+  const evens = arr.filter(getEvens); // Filtrer ut partall
+
+  // Returnerer et objekt som gjør det lettere å referere til const'ene fra funksjonen senere
   return { odds, evens };
 }
 
-//! fiks disse:
-const getOdds = (num) => num // legg til noe mer her for å finne alle tall som er oddetall (PSEUDO KODE: MODULO DELT PÅ TO ER IKKE STRICT LIK NULL);
-const getEvens = (num) => num // legg til noe mer her for å finne alle tall som er oddetall (PSEUDO KODE: MODULO DELT PÅ TO ER STRICT LIK NULL);
+// Nå kan vi filtrere arrayet med filterArray og få ut oddetallene og partallene
+const { odds, evens } = filterArray(randomArray);  // Vi antar at randomArray er definert tidligere
+
+console.log("Oddetall:", odds);  // Skriv ut oddetallene i konsollen
+console.log("Partall:", evens); // Skriv ut partallene i konsollen
+
+// legg til noe mer her for å finne alle tall som er oddetall (PSEUDO KODE: MODULO DELT PÅ TO ER STRICT LIK NULL);
 
 
 /* Oppgave 3
@@ -47,11 +57,15 @@ tips2: syntaxen ligner noe på det som blir gjort i oppgave 2, men det er 2 para
 */
 
 // Dette kalles deconstructing som gjør at man kan referere til variabler på innsiden av et scope (i dette tilfelle fra innsiden av en funksjon):
-const { odds, evens } = filterArray(randomArray);
+// Fiks sumOfOdds for å bruke reduce
+const sumOfOdds = odds.reduce((acc, curr) => acc + curr, 0); // Reduserer arrayet ved å summere alle tallene i oddetallene
 
-//! fiks disse:
-const sumOfOdds = odds
-const sumOfEvens = evens
+// Fiks sumOfEvens for å bruke reduce
+const sumOfEvens = evens.reduce((acc, curr) => acc + curr, 0); // Reduserer arrayet ved å summere alle tallene i partallene
+
+console.log("Summen av oddetallene:", sumOfOdds);  // Skriv ut summen av oddetallene
+console.log("Summen av partallene:", sumOfEvens); // Skriv ut summen av partallene
+
 
 /* Oppgave 3.1
 
@@ -66,7 +80,14 @@ console.log("description of console log:", variabelName)
 
 */
 
-//! skriv oppgave 3.1 svar her
+// Konsoll logger for summene av oddetall og partall
+console.log("Summen av oddetallene:", sumOfOdds);  // Summen av oddetallene
+console.log("Summen av partallene:", sumOfEvens); // Summen av partallene
+
+// Konsoll logger for lengden av oddetallene og partallene
+console.log("Lengden av oddetall arrayet:", odds.length);  // Antall oddetall
+console.log("Lengden av partall arrayet:", evens.length); // Antall partall
+
 
 
 /* Oppgave 4 
@@ -86,16 +107,34 @@ Lag i tillegg en logikk som sjekker hvis verken den første eller andre contitio
 // Conditional Logic
 let result = "";
 let difference = 0;
+
+// Sjekker om sumOfOdds er større enn sumOfEvens
 if (sumOfOdds > sumOfEvens) {
-  valueDifference = sumOfOdds - sumOfEvens
-  result = "Sum of Odds is greater than Sum of Evens."
-} /* skriv videre her */
+  difference = sumOfOdds - sumOfEvens;  // Beregn forskjellen
+  result = "Sum of Odds is greater than Sum of Evens.";  // Beskjed om at oddetallene er større
+} 
+// Sjekker om sumOfOdds er mindre enn sumOfEvens
+else if (sumOfOdds < sumOfEvens) {
+  difference = sumOfEvens - sumOfOdds;  // Beregn forskjellen
+  result = "Sum of Evens is greater than Sum of Odds.";  // Beskjed om at partallene er større
+} 
+// Hvis sumOfOdds er lik sumOfEvens
+else {
+  difference = 0;  // Forskjellen er 0 hvis de er like
+  result = "Sum of Odds and Sum of Evens are equal.";  // Beskjed om at de er like
+}
+
+console.log(result);          // Skriv ut resultatet
+console.log("Difference:", difference);  // Skriv ut forskjellen
 
 
 /* Oppgave 4.1
 
 konsoll log difference. Bruk samme syntax som i oppgave 3.1
 */
+// Konsoll log for å vise forskjellen etter if/else-logikken
+console.log("Difference:", difference);  // Dette vil vise verdien av 'difference' etter oppgave 4
+
 
 /* Oppgave 5
 
@@ -113,7 +152,19 @@ if (this > that) {
 
 let typeDifference;
 
-//! skriv conditional logikken her
+// If/else logikk for å sjekke hvilken av odds og evens som har flest tall
+if (odds.length > evens.length) {
+  // Hvis det er flere oddetall enn partall
+  typeDifference = `There are ${odds.length - evens.length} more odd numbers than even numbers.`;
+} else if (odds.length < evens.length) {
+  // Hvis det er flere partall enn oddetall
+  typeDifference = `There are ${evens.length - odds.length} more even numbers than odd numbers.`;
+} else {
+  // Hvis antallet av oddetall og partall er likt
+  typeDifference = `The number of odd and even numbers are equal.`;
+}
+
+console.log(typeDifference);  // Skriv ut forskjellen i lengden
 
 
 /* Oppgave 6
@@ -129,10 +180,30 @@ eks: document.getElementByid("dinReferanseVerdiFraPtaggen").textContent = variab
 
 */
 
-//! definer en ny variabel for referanse til verdien du skal vise frem
+// Beregn gjennomsnittet for oddetallene
+const averageOdds = odds.reduce((acc, curr) => acc + curr, 0) / odds.length;
 
+// Beregn gjennomsnittet for partallene
+const averageEvens = evens.reduce((acc, curr) => acc + curr, 0) / evens.length;
 
-//! skriv if else her
+// Ny variabel for template literal som viser gjennomsnittsverdien
+let averageDifference;
+
+// Hvis gjennomsnittet av oddetallene er større enn partallene
+if (averageOdds > averageEvens) {
+  averageDifference = `The average of odd numbers (${averageOdds.toFixed(2)}) is greater than the average of even numbers (${averageEvens.toFixed(2)}).`;
+} 
+// Hvis gjennomsnittet av partallene er større enn oddetallene
+else if (averageOdds < averageEvens) {
+  averageDifference = `The average of even numbers (${averageEvens.toFixed(2)}) is greater than the average of odd numbers (${averageOdds.toFixed(2)}).`;
+} 
+// Hvis gjennomsnittene er like
+else {
+  averageDifference = `The average of odd numbers (${averageOdds.toFixed(2)}) and even numbers (${averageEvens.toFixed(2)}) are equal.`;
+}
+
+console.log(averageDifference);  // Skriv ut forskjellen i gjennomsnittsverdien
+
 
 
 /* BONUS Oppgave 7 
@@ -143,6 +214,65 @@ Gjør noe tilsvarende oppgave 6, men som viser noe som ikke har blitt vist enda 
 f.eks median, størst verdi, minst verdi, hvor mange verdier er over/under en viss verdi, er noen av verdiene enn viss verdi, er noen av verdiene fra odds og evens like.
 
 */
+
+// Funksjon for å finne den største verdien i et array
+const largestValue = (arr) => Math.max(...arr);
+
+// Funksjon for å finne den minste verdien i et array
+const smallestValue = (arr) => Math.min(...arr);
+
+// Funksjon for å beregne medianen av et array
+const calculateMedian = (arr) => {
+  arr.sort((a, b) => a - b); // Sorter arrayet
+  const middle = Math.floor(arr.length / 2);
+
+  if (arr.length % 2 === 0) {
+    return (arr[middle - 1] + arr[middle]) / 2; // Hvis arrayet har et jevnt antall, ta gjennomsnittet av de to midterste
+  } else {
+    return arr[middle]; // Hvis arrayet har et oddetall, ta det midterste tallet
+  }
+};
+
+// Funksjon for å telle hvor mange tall som er større enn en viss verdi
+const countGreaterThan = (arr, value) => arr.filter(num => num > value).length;
+
+// Funksjon for å sjekke om noen verdier i odds og evens er like
+const areValuesEqual = (odds, evens) => odds.some(val => evens.includes(val));
+
+// Beregn størst, minst og median for oddetallene og partallene
+const largestOdd = largestValue(odds);
+const largestEven = largestValue(evens);
+
+const smallestOdd = smallestValue(odds);
+const smallestEven = smallestValue(evens);
+
+const medianOdd = calculateMedian(odds);
+const medianEven = calculateMedian(evens);
+
+// Antall tall større enn 5
+const greaterThanFiveOdds = countGreaterThan(odds, 5);
+const greaterThanFiveEvens = countGreaterThan(evens, 5);
+
+// Sjekk om noen verdier er like mellom odd og even
+const areValuesEqualInBoth = areValuesEqual(odds, evens);
+
+// Template literal som viser resultatene
+let additionalResult = `
+  The largest odd value is ${largestOdd}.
+  The largest even value is ${largestEven}.
+  The smallest odd value is ${smallestOdd}.
+  The smallest even value is ${smallestEven}.
+  The median of odd numbers is ${medianOdd}.
+  The median of even numbers is ${medianEven}.
+  There are ${greaterThanFiveOdds} odd numbers greater than 5.
+  There are ${greaterThanFiveEvens} even numbers greater than 5.
+  Are there any common values between odds and evens? ${areValuesEqualInBoth ? "Yes" : "No"}.
+`;
+
+console.log(additionalResult);  // Skriv ut resultatene
+
+// Vis på nettsiden (dersom du bruker HTML)
+document.getElementById("additionalResult").textContent = additionalResult;
 
 
 //! Koden under skal ikke røres. Den gjør at man får ut svaret på nettsiden:
